@@ -18,7 +18,7 @@ $result = @{
 }
 
 try {
-  for ($instance in ((Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server').InstalledInstances)) {
+  foreach ($instance in ((Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server').InstalledInstances)) {
 	$instances += $instances
   }
 } catch {
