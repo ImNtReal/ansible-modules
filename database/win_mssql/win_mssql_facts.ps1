@@ -18,8 +18,9 @@ $result = @{
 }
 
 try {
-  $instances = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server').InstalledInstances
-	$instances += (Get-ItemProperty 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Microsoft SQL Server').InstalledInstances
+  for $instance in ((Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server').InstalledInstances) {
+	$instances += $instances
+  }
 } catch {
   Fail-Json -obj $result -message "Failed to get SQL instances on the target: $($_.Exception.Message)"
 }
