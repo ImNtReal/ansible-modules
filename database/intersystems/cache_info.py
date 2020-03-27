@@ -98,15 +98,15 @@ def main():
           inst_state = instance.split("^")[8]
           inst_mir_type = instance.split("^")[10]
           inst_mir_status = instance.split("^")[11]
-          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances'][inst_name]['name'] = inst_name
-          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances'][inst_name]['directory'] = inst_dir
-          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances'][inst_name]['version'] = inst_ver
-          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances'][inst_name]['status'] = inst_status
-          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances'][inst_name]['superserver_port'] = inst_ss_port
-          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances'][inst_name]['web_port'] = inst_web_port
-          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances'][inst_name]['state'] = inst_state
-          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances'][inst_name]['mirror_type'] = inst_mir_type
-          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances'][inst_name]['mirror_status'] = inst_mir_status
+          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances']['name'] = inst_name
+          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances']['directory'] = inst_dir
+          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances']['version'] = inst_ver
+          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances']['status'] = inst_status
+          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances']['superserver_port'] = inst_ss_port
+          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances']['web_port'] = inst_web_port
+          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances']['state'] = inst_state
+          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances']['mirror_type'] = inst_mir_type
+          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances']['mirror_status'] = inst_mir_status
 
     # during the execution of the module, if there is an exception or a
     # conditional state that effectively causes a failure, run
