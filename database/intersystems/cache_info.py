@@ -98,7 +98,7 @@ def main():
           inst_state = instance.split("^")[8]
           inst_mir_type = instance.split("^")[10]
           inst_mir_status = instance.split("^")[11]
-          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances'] = {}
+          ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances'][inst_name] = {}
           ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances'][inst_name]['name'] = inst_name
           ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances'][inst_name]['directory'] = inst_dir
           ansible_facts_dict['ansible_facts']['ansible_intersystems_cache']['instances'][inst_name]['version'] = inst_ver
