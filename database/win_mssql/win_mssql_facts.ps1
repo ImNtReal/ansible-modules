@@ -1,7 +1,6 @@
 #!powershell
 
 # Copyright: (c) 2019, Jameson Pugh
-# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 #Requires -Module Ansible.ModuleUtils.Legacy
 
@@ -19,6 +18,9 @@ $result = @{
 
 try {
   foreach ($instance in ((Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server').InstalledInstances)) {
+	$instances += $instance
+  }
+  foreach ($instance in ((Get-ItemProperty 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Microsoft SQL Server').InstalledInstances)) {
 	$instances += $instance
   }
 } catch {
