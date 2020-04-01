@@ -16,12 +16,20 @@ $result = @{
   }
 }
 
+$instances = [System.Collections.ArrayList]@()
+
 try {
   foreach ($instance in ((Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server').InstalledInstances)) {
-	$instances += $instance
+	$instance_info = @{
+		name = $instance
+	}
+	$instances.Add($instance_info)
   }
   foreach ($instance in ((Get-ItemProperty 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Microsoft SQL Server').InstalledInstances)) {
-	$instances += $instance
+	$instance_info = @{
+		name = $instance
+	}
+	$instances.Add($instance_info)
   }
 } catch {
   Fail-Json -obj $result -message "Failed to get SQL instances on the target: $($_.Exception.Message)"
