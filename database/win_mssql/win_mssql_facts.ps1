@@ -11,7 +11,7 @@ $result = @{
   changed = $false
   ansible_facts = @{
     ansible_mssql =  @{
-      instances = @{}
+      instances = @()
     }
   }
 }
