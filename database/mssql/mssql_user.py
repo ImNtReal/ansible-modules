@@ -96,7 +96,7 @@ def main():
       login_port = dict(required = False, default = 1433),
       login_name = dict(required = True),
       login_password = dict(required = True, no_log = True),
-	    host=dict(type='str', default='localhost')
+      host=dict(type='str', default='localhost')
     )
   )
 
