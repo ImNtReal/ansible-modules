@@ -108,43 +108,19 @@ def main():
 
   cursor = None
   try:
-    conn = pymssql.connect(host, login_name, login_password, "master")
+    conn = pymssql.connect(host, login_name, login_password)
 	  cursor = conn.cursor()
 
   except Exception as e:
     module.fail_json(msg="unable to connect to database, check login_user and login_password are correct or %s has the credentials. "
       "Exception message: %s" % (config_file, to_native(e)))
 
-  cursor.execute=("SELECT COUNT(*) FROM sys.server_principals WHERE name = '$login'")
-  
+  cursor.execute("SELECT COUNT(*) FROM sys.server_principals WHERE name = %s", (name))
+  user_exists = cursor.fetchone()
 
-	cursor.execute=("CREATE USER $name FOR LOGIN $login")
+	cursor.execute('CREATE USER %s FOR LOGIN %s', name, login)
 
 	module.exit_json(changed = True, name = name)
-
-def sqlcmd(login_port, login_name, login_password, command):
-	subprocess.check_call([
-		'/opt/mssql-tools/bin/sqlcmd',
-		'-S',
-		"localhost,{0}".format(login_port),
-		'-U',
-		login_name,
-		'-P',
-		login_password,
-		'-b',
-		'-Q',
-		command
-	])
-
-def quoteName(name, quote_char):
-	if quote_char == '[' or quote_char == ']':
-		(quote_start_char, quote_end_char) = ('[', ']')
-	elif quote_char == "'":
-		(quote_start_char, quote_end_char) = ("N'", "'")
-	else:
-		raise Exception("Unsupported quote_char {0}, must be [ or ] or '".format(quote_char))
-
-	return "{0}{1}{2}".format(quote_start_char, name.replace(quote_end_char, quote_end_char + quote_end_char), quote_end_char)
 
 if __name__ == '__main__':
 	main()
