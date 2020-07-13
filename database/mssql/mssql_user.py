@@ -118,9 +118,13 @@ def main():
   cursor.execute("SELECT COUNT(*) FROM sys.server_principals WHERE name = %s", (name))
   user_exists = cursor.fetchone()
 
-	cursor.execute('CREATE USER %s FOR LOGIN %s', name, login)
-
-	module.exit_json(changed = True, name = name)
+  if not user_exists[0]:
+    cursor.execute('CREATE USER %s FOR LOGIN %s', name, login)
+    cursor.close()
+    conn.close()
+  	module.exit_json(changed = True, name = name)
+  
+  module.exit_json(changed = False)
 
 if __name__ == '__main__':
 	main()
