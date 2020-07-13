@@ -30,7 +30,7 @@ options:
     required: true
   login:
     description:
-      - The login name of the user to add
+      - The login of the user to add
     required: true
   login_port:
     description:
@@ -110,7 +110,7 @@ def main():
   cursor = None
   try:
     conn = pymssql.connect(host, login_name, login_password)
-	  cursor = conn.cursor()
+    cursor = conn.cursor()
 
   except Exception as e:
     module.fail_json(msg="unable to connect to database, check login_user and login_password are correct or %s has the credentials. "
@@ -123,7 +123,7 @@ def main():
     cursor.execute('CREATE USER %s FOR LOGIN %s', name, login)
     cursor.close()
     conn.close()
-  	module.exit_json(changed = True, name = name)
+    module.exit_json(changed = True, name = name)
 
   module.exit_json(changed = False)
 
