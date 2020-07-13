@@ -3,9 +3,9 @@
 # Copyright (c) 2020 Jameson Pugh
 
 ANSIBLE_METADATA = {
-	'metadata_version': '1.1',
-	'supported_by': 'community',
-	'status': ['preview']
+  'metadata_version': '1.1',
+  'supported_by': 'community',
+  'status': ['preview']
 }
 
 DOCUMENTATION = r'''
@@ -15,7 +15,7 @@ module: mssql_user
 short_description: Add users to a SQL Server instance
 
 description:
-	- Add users to a SQL Server instance.
+  - Add users to a SQL Server instance.
 
 version_added: "2.2"
 
@@ -124,8 +124,8 @@ def main():
     cursor.close()
     conn.close()
   	module.exit_json(changed = True, name = name)
-  
+
   module.exit_json(changed = False)
 
 if __name__ == '__main__':
-	main()
+  main()
