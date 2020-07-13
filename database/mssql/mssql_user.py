@@ -120,7 +120,7 @@ def main():
   user_exists = cursor.fetchone()
 
   if not user_exists[0]:
-    cursor.execute('CREATE USER %s FOR LOGIN %s', name, login)
+    cursor.execute('CREATE USER %s FOR LOGIN %s', (name, login))
     cursor.close()
     conn.close()
     module.exit_json(changed = True, name = name)
