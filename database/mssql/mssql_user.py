@@ -8,7 +8,7 @@ ANSIBLE_METADATA = {
 	'status': ['preview']
 }
 
-DOCUMENTATION = '''
+DOCUMENTATION = r'''
 ---
 module: mssql_user
 
@@ -64,6 +64,7 @@ notes:
 requirements:
   - python >= 2.7
   - pymssql
+'''
 
 EXAMPLES = r'''
 # Create a user named 'foo' for the login named 'bar'
