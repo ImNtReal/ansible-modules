@@ -36,13 +36,13 @@ try {
 	  $instances.Add($instance_info)
   }
   foreach ($instance in ((Get-ItemProperty 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Microsoft SQL Server').InstalledInstances)) {
-    foreach ($Path in (Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server' | Where-Object { $_.Name -like "*MSSQL*" }).PSPath) {
+    foreach ($Path in (Get-ChildItem -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Microsoft SQL Server' | Where-Object { $_.Name -like "*MSSQL*" }).PSPath) {
       if ((Get-ItemProperty -Path $Path).'(default)' -eq $instance) {
         $instance_path = $Path
       }
     }
     if ($instance_path -eq $null -and $instance -eq 'MSSQLSERVER') {
-      $instance_path = (Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server' | Where-Object { $_.Name -like "*MSSQL*.$env:COMPUTERNAME" }).PSPath
+      $instance_path = (Get-ChildItem -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Microsoft SQL Server' | Where-Object { $_.Name -like "*MSSQL*.$env:COMPUTERNAME" }).PSPath
     }
     $instance_port = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpPort).TcpPort
 	  $instance_info = @{
