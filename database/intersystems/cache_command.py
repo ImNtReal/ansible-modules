@@ -83,8 +83,11 @@ def main():
   command_to_run="printf '%s' | csession '%s' -U '%s'" % (command, instance, namespace)
   try:
     pipe = Popen(command_to_run, shell=True, stdout=PIPE)
+    l=0
     for line in pipe.stdout:
-      output.append(str(line))
+      l+=1
+      if l > 4:
+        output.append(str(line))
 
   except Exception as e:
     module.fail_json(msg="Command failed.")
