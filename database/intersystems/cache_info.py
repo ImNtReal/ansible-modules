@@ -10,7 +10,7 @@ ANSIBLE_METADATA = {
 
 DOCUMENTATION = '''
 ---
-module: cache
+module: cache_info
 
 short_description: Gathers information about Intersystems Cache' databases
 
