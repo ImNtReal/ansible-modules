@@ -78,6 +78,7 @@ def main():
 
   command=re.sub('%', '%%', command)
   command=re.sub('%%%%', '%%', command)
+  mprompt="%s>" % (namespace)
 
   output = []
   command_to_run="printf '%s' | csession '%s' -U '%s'" % (command, instance, namespace)
@@ -87,7 +88,7 @@ def main():
     for line in pipe.stdout:
       l+=1
       if l > 4:
-        if str(line) != "%s>" % (namespace)
+        if str(line) != mprompt:
           output.append(str(line))
 
   except Exception as e:
