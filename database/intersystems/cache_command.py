@@ -45,7 +45,9 @@ EXAMPLES = '''
 - name: Get path to CACHE database
   cache_command:
     instance: PRD
-    command: w ^CONFIG("Databases","CACHE")
+    command: |
+      w ^CONFIG("Databases","CACHE")
+      h
 '''
 
 RETURN = '''
@@ -59,6 +61,7 @@ from ansible.module_utils.basic import *
 from ansible.module_utils.facts import *
 from subprocess import Popen, PIPE
 import json
+import re
 
 def main():
   module = AnsibleModule(
@@ -73,15 +76,11 @@ def main():
   namespace=module.params['namespace']
   command=module.params['command']
 
-  # the AnsibleModule object will be our abstraction working with Ansible
-  # this includes instantiation, a couple of common attr would be the
-  # args/params passed to the execution, as well as if the module
-  # supports check mode
-
-
+  command=re.sub('%', '%%', command)
+  command=re.sub('%%%%', '%%', command)
 
   output = []
-  command_to_run = ('csession %s -U %s %s', (instance, namespace, command))
+  command_to_run="printf '%s' | csession '%s' -U '%s'" % (command, instance, namespace)
   try:
     pipe = Popen(command_to_run, shell=True, stdout=PIPE)
     for line in pipe.stdout:
