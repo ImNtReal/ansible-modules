@@ -87,7 +87,8 @@ def main():
     for line in pipe.stdout:
       l+=1
       if l > 4:
-        output.append(str(line))
+        if str(line) != "%s>" % (namespace)
+          output.append(str(line))
 
   except Exception as e:
     module.fail_json(msg="Command failed.")
