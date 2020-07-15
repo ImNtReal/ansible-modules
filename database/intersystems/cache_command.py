@@ -88,7 +88,7 @@ def main():
     for line in pipe.stdout:
       l+=1
       if l > 4:
-        if str(line) != mprompt:
+        if str(line) != "%s\n" % mprompt:
           output.append(str(line))
 
   except Exception as e:
