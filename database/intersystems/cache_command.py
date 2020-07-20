@@ -87,10 +87,10 @@ def main():
     l=0
     for line in pipe.stdout:
       l+=1
-      line=line.replace('\\n' '')
+      lineout=line.replace('\\n' '')
       if l > 4:
-        if str(line) != "%s" % mprompt:
-          output.append(str(line))
+        if str(lineout) != "%s" % mprompt:
+          output.append(str(lineout))
 
   except Exception as e:
     module.fail_json(msg="Command failed.")
