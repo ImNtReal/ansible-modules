@@ -87,7 +87,7 @@ def main():
     l=0
     for line in pipe.stdout:
       l+=1
-      line=line.replace('\n' '')
+      line=line.replace('\\n' '')
       if l > 4:
         if str(line) != "%s" % mprompt:
           output.append(str(line))
