@@ -89,7 +89,7 @@ def main():
       l+=1
       if l > 4:
         if str(line) != "%s\n" % mprompt:
-          output.append(str(line))
+          output.append(str(line.replace('\n', '')))
 
   except Exception as e:
     module.fail_json(msg="Command failed.")
