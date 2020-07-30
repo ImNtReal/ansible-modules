@@ -30,7 +30,7 @@ try {
     }
     $instance_port = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpPort).TcpPort
     if ($instance_port -eq '') {
-      $instance_port = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpPort).TcpDynamicPorts
+      $instance_port = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpDynamicPorts).TcpDynamicPorts
     }
 	  $instance_info = @{
       name = $instance
@@ -49,7 +49,7 @@ try {
     }
     $instance_port = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpPort).TcpPort
     if ($instance_port -eq '') {
-      $instance_port = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpPort).TcpDynamicPorts
+      $instance_port = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpDynamicPorts).TcpDynamicPorts
     }
 	  $instance_info = @{
       name = $instance
