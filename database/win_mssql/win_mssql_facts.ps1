@@ -29,6 +29,9 @@ try {
       $instance_path = (Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server' | Where-Object { $_.Name -like "*MSSQL*.$env:COMPUTERNAME" }).PSPath
     }
     $instance_port = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpPort).TcpPort
+    if ($instance_port -eq '') {
+      $instance_port = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpPort).TcpDynamicPorts
+    }
 	  $instance_info = @{
       name = $instance
       port = $instance_port
@@ -45,6 +48,9 @@ try {
       $instance_path = (Get-ChildItem -Path 'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Microsoft SQL Server' | Where-Object { $_.Name -like "*MSSQL*.$env:COMPUTERNAME" }).PSPath
     }
     $instance_port = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpPort).TcpPort
+    if ($instance_port -eq '') {
+      $instance_port = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpPort).TcpDynamicPorts
+    }
 	  $instance_info = @{
       name = $instance
       port = $instance_port
