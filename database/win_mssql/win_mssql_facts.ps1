@@ -35,7 +35,7 @@ try {
 	  $instance_info = @{
       name = $instance
       port = $instance_port
-      reg_path = $instance_path
+      reg_path = $instance_path -replace 'Microsoft.PowerShell.Core\\Registry::HKEY_LOCAL_MACHINE', "HKLM:"
 	  }
 	  $instances.Add($instance_info)
   }
@@ -55,7 +55,7 @@ try {
 	  $instance_info = @{
       name = $instance
       port = $instance_port
-      reg_path = $instance_path
+      reg_path = $instance_path -replace 'Microsoft.PowerShell.Core\\Registry::HKEY_LOCAL_MACHINE', "HKLM:"
   	}
   	$instances.Add($instance_info)
   }
