@@ -35,6 +35,7 @@ try {
 	  $instance_info = @{
       name = $instance
       port = $instance_port
+      reg_path = $instance_path
 	  }
 	  $instances.Add($instance_info)
   }
@@ -54,6 +55,7 @@ try {
 	  $instance_info = @{
       name = $instance
       port = $instance_port
+      reg_path = $instance_path
   	}
   	$instances.Add($instance_info)
   }
