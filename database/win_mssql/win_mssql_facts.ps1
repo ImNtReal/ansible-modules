@@ -20,7 +20,7 @@ $instances = [System.Collections.ArrayList]@()
 
 try {
   foreach ($instance in ((Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server').InstalledInstances)) {
-    foreach ($Path in (Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server' | Where-Object { $_.Name -like "*MSSQL*" }).PSPath) {
+    foreach ($Path in (Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server' | Where-Object { $_.Name -like "*MSSQL*" }).PSPath) {  
       if ((Get-ItemProperty -Path $Path).'(default)' -eq $instance) {
         $instance_path = $Path
       }
@@ -32,10 +32,18 @@ try {
     if ($instance_port -eq '') {
       $instance_port = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpDynamicPorts).TcpDynamicPorts
     }
+
+    if ($instance = 'MSSQLSERVER') {
+      $instance_instance = "$env:COMPUTERNAME"
+    } else {
+      $instance_instance = "$env:COMPUTERNAME\$instance"
+    }
+
 	  $instance_info = @{
       name = $instance
       port = $instance_port
       reg_path = $instance_path -replace 'Microsoft.PowerShell.Core\\Registry::HKEY_LOCAL_MACHINE', "HKLM:"
+      instance = $instance_instance
 	  }
 	  $instances.Add($instance_info)
   }
