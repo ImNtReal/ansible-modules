@@ -19,6 +19,15 @@ $result = @{
 $instances = [System.Collections.ArrayList]@()
 
 try {
+  $service_lname = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Server').LName
+  $service_name = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Server').Name
+  $agent_lname = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Agent').LName
+  $service_name = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Agent').Name
+} catch {
+  Fail-Json -obj $result -message "Failed to get SQL service LName/Names on the target: $($_.Exception.Message)"
+}
+
+try {
   foreach ($instance in ((Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server').InstalledInstances)) {
     foreach ($Path in (Get-ChildItem -Path 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server' | Where-Object { $_.Name -like "*MSSQL*" }).PSPath) {  
       if ((Get-ItemProperty -Path $Path).'(default)' -eq $instance) {
@@ -34,14 +43,21 @@ try {
     }
     if ($instance = 'MSSQLSERVER') {
       $instance_instance = "$env:COMPUTERNAME"
+      $instance_service = $service_name
+      $instance_agent = $agent_name
     } else {
       $instance_instance = "$env:COMPUTERNAME\$instance"
+      $instance_service = "$service_lname$instance"
+      $instance_agent = "$agent_lname$instance"
     }
+    $instance_service = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpPort).TcpPort
 	  $instance_info = @{
       name = $instance
       port = $instance_port
       reg_path = $instance_path -replace 'Microsoft.PowerShell.Core\\Registry::HKEY_LOCAL_MACHINE', "HKLM:"
       instance = $instance_instance
+      service = $instance_service
+      agent = $instance_agent
 	  }
 	  $instances.Add($instance_info)
   }
@@ -60,13 +76,20 @@ try {
     }
     if ($instance = 'MSSQLSERVER') {
       $instance_instance = "$env:COMPUTERNAME"
+      $instance_service = $service_name
+      $instance_agent = $agent_name
     } else {
       $instance_instance = "$env:COMPUTERNAME\$instance"
+      $instance_service = "$service_lname$instance"
+      $instance_agent = "$agent_lname$instance"
     }
 	  $instance_info = @{
       name = $instance
       port = $instance_port
       reg_path = $instance_path -replace 'Microsoft.PowerShell.Core\\Registry::HKEY_LOCAL_MACHINE', "HKLM:"
+      instance = $instance_instance
+      service = $instance_service
+      agent = $instance_agent
   	}
   	$instances.Add($instance_info)
   }
