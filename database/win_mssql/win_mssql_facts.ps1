@@ -22,7 +22,7 @@ try {
   $service_lname = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Server').LName
   $service_name = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Server').Name
   $agent_lname = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Agent').LName
-  $service_name = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Agent').Name
+  $agent_name = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Agent').Name
 } catch {
   Fail-Json -obj $result -message "Failed to get SQL service LName/Names on the target: $($_.Exception.Message)"
 }
@@ -43,11 +43,13 @@ try {
     }
     if ($instance = 'MSSQLSERVER') {
       $instance_instance = "$env:COMPUTERNAME"
+      $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN.ToLower()"
       $instance_service = $service_name
       $instance_agent = $agent_name
     } else {
       $instance_instance = "$env:COMPUTERNAME\$instance"
       $instance_service = "$service_lname$instance"
+      $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN.ToLower()\$instance"
       $instance_agent = "$agent_lname$instance"
     }
     $instance_service = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpPort).TcpPort
@@ -56,6 +58,7 @@ try {
       port = $instance_port
       reg_path = $instance_path -replace 'Microsoft.PowerShell.Core\\Registry::HKEY_LOCAL_MACHINE', "HKLM:"
       instance = $instance_instance
+      fqdn = $instance_fqdn
       service = $instance_service
       agent = $instance_agent
 	  }
@@ -76,11 +79,13 @@ try {
     }
     if ($instance = 'MSSQLSERVER') {
       $instance_instance = "$env:COMPUTERNAME"
+      $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN.ToLower()"
       $instance_service = $service_name
       $instance_agent = $agent_name
     } else {
       $instance_instance = "$env:COMPUTERNAME\$instance"
       $instance_service = "$service_lname$instance"
+      $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN.ToLower()\$instance"
       $instance_agent = "$agent_lname$instance"
     }
 	  $instance_info = @{
@@ -88,6 +93,7 @@ try {
       port = $instance_port
       reg_path = $instance_path -replace 'Microsoft.PowerShell.Core\\Registry::HKEY_LOCAL_MACHINE', "HKLM:"
       instance = $instance_instance
+      fqdn = $instance_fqdn
       service = $instance_service
       agent = $instance_agent
   	}
