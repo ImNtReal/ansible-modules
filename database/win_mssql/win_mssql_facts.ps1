@@ -43,16 +43,15 @@ try {
     }
     if ($instance = 'MSSQLSERVER') {
       $instance_instance = "$env:COMPUTERNAME"
-      $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN.ToLower()"
+      $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN".ToLower()
       $instance_service = $service_name
       $instance_agent = $agent_name
     } else {
       $instance_instance = "$env:COMPUTERNAME\$instance"
       $instance_service = "$service_lname$instance"
-      $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN.ToLower()\$instance"
+      $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN".ToLower() + "\$instance"
       $instance_agent = "$agent_lname$instance"
     }
-    $instance_service = (Get-ItemProperty -Path "$instance_path\MSSQLServer\SuperSocketNetLib\Tcp\IPAll" -Name TcpPort).TcpPort
 	  $instance_info = @{
       name = $instance
       port = $instance_port
@@ -79,13 +78,13 @@ try {
     }
     if ($instance = 'MSSQLSERVER') {
       $instance_instance = "$env:COMPUTERNAME"
-      $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN.ToLower()"
+      $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN".ToLower()
       $instance_service = $service_name
       $instance_agent = $agent_name
     } else {
       $instance_instance = "$env:COMPUTERNAME\$instance"
       $instance_service = "$service_lname$instance"
-      $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN.ToLower()\$instance"
+      $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN".ToLower() + "\$instance"
       $instance_agent = "$agent_lname$instance"
     }
 	  $instance_info = @{
