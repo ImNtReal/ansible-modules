@@ -19,10 +19,18 @@ $result = @{
 $instances = [System.Collections.ArrayList]@()
 
 try {
-  $service_lname = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Server').LName
-  $service_name = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Server').Name
-  $agent_lname = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Agent').LName
-  $agent_name = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Agent').Name
+  if (Test-Path 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Server') {
+    $service_lname = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Server').LName
+    $service_name = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Server').Name
+    $agent_lname = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Agent').LName
+    $agent_name = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Agent').Name
+  }
+  if (Test-Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Microsoft SQL Server\Services\SQL Server') {
+    $service_lname = (Get-ItemProperty 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Microsoft SQL Server\Services\SQL Server').LName
+    $service_name = (Get-ItemProperty 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Microsoft SQL Server\Services\SQL Server').Name
+    $agent_lname = (Get-ItemProperty 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Microsoft SQL Server\Services\SQL Agent').LName
+    $agent_name = (Get-ItemProperty 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\Microsoft SQL Server\Services\SQL Agent').Name
+  }
 } catch {
   Fail-Json -obj $result -message "Failed to get SQL service LName/Names on the target: $($_.Exception.Message)"
 }
