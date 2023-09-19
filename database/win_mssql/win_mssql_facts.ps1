@@ -51,11 +51,13 @@ try {
     }
     if ($instance = 'MSSQLSERVER') {
       $instance_instance = "$env:COMPUTERNAME"
+      $instance_sqlinstance = "$env:COMPUTERNAME".ToUpper()
       $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN".ToLower()
       $instance_service = $service_name
       $instance_agent = $agent_name
     } else {
       $instance_instance = "$env:COMPUTERNAME\$instance"
+      $instance_sqlinstance = "$env:COMPUTERNAME".ToUpper() + "\$instance"
       $instance_service = "$service_lname$instance"
       $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN".ToLower() + "\$instance"
       $instance_agent = "$agent_lname$instance"
@@ -66,6 +68,7 @@ try {
       reg_path = $instance_path -replace 'Microsoft.PowerShell.Core\\Registry::HKEY_LOCAL_MACHINE', "HKLM:"
       instance = $instance_instance
       fqdn = $instance_fqdn
+      sql_instance = $instance_sqlinstance
       service = $instance_service
       agent = $instance_agent
 	  }
@@ -86,11 +89,13 @@ try {
     }
     if ($instance = 'MSSQLSERVER') {
       $instance_instance = "$env:COMPUTERNAME"
+      $instance_sqlinstance = "$env:COMPUTERNAME".ToUpper()
       $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN".ToLower()
       $instance_service = $service_name
       $instance_agent = $agent_name
     } else {
       $instance_instance = "$env:COMPUTERNAME\$instance"
+      $instance_sqlinstance = "$env:COMPUTERNAME".ToUpper() + "\$instance"
       $instance_service = "$service_lname$instance"
       $instance_fqdn = "$env:COMPUTERNAME.$env:USERDNSDOMAIN".ToLower() + "\$instance"
       $instance_agent = "$agent_lname$instance"
@@ -101,6 +106,7 @@ try {
       reg_path = $instance_path -replace 'Microsoft.PowerShell.Core\\Registry::HKEY_LOCAL_MACHINE', "HKLM:"
       instance = $instance_instance
       fqdn = $instance_fqdn
+      sql_instance = $instance_sqlinstance
       service = $instance_service
       agent = $instance_agent
   	}
