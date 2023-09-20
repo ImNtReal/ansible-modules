@@ -9,7 +9,7 @@ ANSIBLE_METADATA = {'metadata_version': '1.1',
 
 DOCUMENTATION = r'''
 ---
-module: win_mssql_facts
+module: mssql_facts
 version_added: '2.8'
 short_description: Create a facts collection for MS SQL Server
 description:
@@ -24,7 +24,7 @@ author:
 
 EXAMPLES = r'''
 - name: Gather facts from MS SQL
-  win_mssql_facts:
+  mssql_facts:
 - name: Displays the Instances
   debug:
     var: ansible_mssql.instances
