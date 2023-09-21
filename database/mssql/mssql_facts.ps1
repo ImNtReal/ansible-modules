@@ -120,6 +120,8 @@ If ($IsLinux) {
   $instance_agent = ""
   try {
     $instance_port = (cat /var/opt/mssql/mssql.conf | awk '/tcpport/ {print $3}')
+  } catch {
+    Fail-Json -obj $result -message "Failed to get SQL instance port."
   }
   If (! $instance_port) {
     $instance_port = "1433"
