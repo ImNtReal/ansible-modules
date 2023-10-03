@@ -18,6 +18,10 @@ $result = @{
 
 $instances = [System.Collections.ArrayList]@()
 
+if ($PSVersionTable.PSVersion.Major -lt 6) {
+  $IsWindows = $True
+}
+
 If ($IsWindows) {
   try {
     if (Test-Path 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Services\SQL Server') {
